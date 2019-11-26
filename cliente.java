@@ -21,7 +21,7 @@ public class cliente {
 
 	//Informacoes do servidor
 	int serverPort = 9999;
-	InetAddress serverIP = InetAddress.getByName("localhost");
+	InetAddress serverIP = InetAddress.getByName("192.168.15.16");
     //Informacoes desse cliente
     DatagramSocket portThisMsg = new DatagramSocket();
     DatagramSocket portThisAudio = new DatagramSocket();

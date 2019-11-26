@@ -21,6 +21,11 @@ public class servidor {
 		return msg;
 	}
 
+	public static byte[] boolToByte(boolean b){
+		byte[] bytes = new byte[]{(byte) (b ? 1:0)};
+		return bytes;
+	}
+
 	public static void main(String[] args){
 		//Porta usada pelo servidor
 		int serverPort = 9999;
@@ -45,6 +50,7 @@ public class servidor {
 			while(true) {
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
+				DatagramPacket sendPacket;
 
 				if(ip1 == null) {
 
@@ -57,6 +63,14 @@ public class servidor {
 					id1 = new String(receivePacket.getData(), 4, receivePacket.getLength()-4);
 					//System.out.print(id1 + " " + portAudio1);
 					System.out.println("Hello");
+
+				}else if(ip1.equals(receivePacket.getAddress())){
+					//Envia uma mensagem ao cliente 2 sobre o novo estado do cliente 1
+					isOnline1 = !isOnline1;
+					sendData = boolToByte(isOnline1);
+					sendPacket = new DatagramPacket(sendData, sendData.length, ip2, portMsg2);
+					serverSocket.send(sendPacket);
+					System.out.println(isOnline1);
 
 				}else if(ip2 == null) {
 
@@ -73,7 +87,7 @@ public class servidor {
 					sendData = concatenarBytes(ip1.getAddress(), intToByte(portMsg1));
 					sendData = concatenarBytes(sendData, intToByte(portAudio1));
 					sendData = concatenarBytes(sendData, id1.getBytes());
-					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, ip2, portMsg2);
+					sendPacket = new DatagramPacket(sendData, sendData.length, ip2, portMsg2);
 					serverSocket.send(sendPacket);
 
 					//Envia ao cliente1 as informacoes do cliente2
@@ -84,6 +98,13 @@ public class servidor {
 					serverSocket.send(sendPacket);
 
 					System.out.println("World");
+				}else if(ip2.equals(receivePacket.getAddress())){
+					//Envia uma mensagem ao cliente 1 sobre o novo estado do cliente 2
+					isOnline2 = !isOnline2;
+					sendData = boolToByte(isOnline2);
+					sendPacket = new DatagramPacket(sendData, sendData.length, ip1, portMsg1);
+					serverSocket.send(sendPacket);
+					System.out.println(isOnline2);
 				}
 			}
 		} catch (IOException e) {

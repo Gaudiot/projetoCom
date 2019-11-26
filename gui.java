@@ -90,6 +90,12 @@ public class gui {
                     cbAudio.setEnabled(true);
                     textField.setEnabled(true);
                 }
+                byte[] bytes = "".getBytes();
+                try {
+                    client.sendMsg(bytes, client.serverIP, client.serverPort);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
