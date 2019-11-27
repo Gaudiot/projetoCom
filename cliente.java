@@ -21,7 +21,7 @@ public class cliente {
 
 	//Informacoes do servidor
 	int serverPort = 9999;
-	InetAddress serverIP = InetAddress.getByName("192.168.15.16");
+	InetAddress serverIP = InetAddress.getByName("G1C20");
 
     //Informacoes desse cliente
     DatagramSocket portThisMsg = new DatagramSocket();
@@ -29,6 +29,11 @@ public class cliente {
     idGui idUI;
     gui graphicUI;
     String idThis = "YOU";
+    int qttMsgStored;
+    //O primeiro valor do array representa a quantidade de mensagens que podem ser armazenadas por vez
+	//Esse valor poderia ser mudado dinanicamente, mas nao achamos que valia o esforco
+    byte msgStored[][] = new byte[100][1024];
+
 	//Informacoes do outro cliente
 	int portOtherMsg;
 	int portOtherAudio;
@@ -42,6 +47,7 @@ public class cliente {
 	public cliente() throws IOException {
 		portOtherMsg = -1;
 		portOtherAudio = -1;
+		qttMsgStored = 0;
 		otherOnline = false;
 
 		idUI = new idGui(this);
@@ -49,8 +55,13 @@ public class cliente {
 
 	//Funcao utilizada para o cliente enviar mensagens
 	public void sendMsg(byte msg[], InetAddress adressIP, int porta) throws IOException {
-        sendPacket = new DatagramPacket(msg, msg.length, adressIP, porta);
-        portThisMsg.send(sendPacket);
+		if(adressIP.equals(otherIP) && porta == portOtherMsg && !otherOnline){
+			msgStored[qttMsgStored] = msg;
+			qttMsgStored++;
+		}else {
+			sendPacket = new DatagramPacket(msg, msg.length, adressIP, porta);
+			portThisMsg.send(sendPacket);
+		}
     }
 
     public void sendAudio(byte b[], InetAddress addressIP, int porta) throws  IOException {
@@ -84,10 +95,16 @@ public class cliente {
 				portOtherMsg = byteToInt(Arrays.copyOfRange(receiveData, 4, 8));
 				portOtherAudio = byteToInt(Arrays.copyOfRange(receiveData, 8, 12));
 				idOther = new String(receivePacket.getData(), 12, receivePacket.getLength() - (4 * 3));
+				otherOnline = true;
 				graphicUI = new gui(this);
 			}else{
 				otherOnline = (receiveData[0] != 0);
-				//System.out.println("o outro esta " + otherOnline);
+				if(otherOnline){
+					for(int i = 0 ; i < qttMsgStored ; i++){
+						sendMsg(msgStored[i], otherIP, portOtherMsg);
+					}
+					qttMsgStored = 0;
+				}
 			}
 			return "";
 		}
