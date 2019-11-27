@@ -5,7 +5,9 @@
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-12828863"/>
+    </properties>
     <border type="none"/>
     <children>
       <component id="ea2da" class="javax.swing.JTextArea" binding="textArea">
@@ -15,7 +17,7 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-12007268"/>
+          <background color="-1118485"/>
           <font name="Microsoft JhengHei" size="14"/>
           <foreground color="-16777216"/>
         </properties>
@@ -26,7 +28,9 @@
             <preferred-size width="223" height="30"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-2697517"/>
+        </properties>
       </component>
       <component id="15e4e" class="javax.swing.JButton" binding="button1" default-binding="true">
         <constraints>
@@ -35,6 +39,7 @@
           </grid>
         </constraints>
         <properties>
+          <background color="-2697517"/>
           <text value="Button"/>
         </properties>
       </component>
@@ -43,6 +48,8 @@
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-2697517"/>
+          <foreground color="-11183782"/>
           <text value="send audio"/>
         </properties>
       </component>
@@ -51,6 +58,8 @@
           <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-2697517"/>
+          <foreground color="-11183782"/>
           <text value="be online"/>
         </properties>
       </component>
