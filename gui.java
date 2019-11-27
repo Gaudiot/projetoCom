@@ -21,6 +21,7 @@ public class gui {
     public gui(cliente client){
         this.client = client;
         capAudio = new captureAudio();
+
         janela = new JFrame();
         janela.setContentPane(panel);
         janela.setVisible(true);
@@ -28,6 +29,7 @@ public class gui {
         janela.setSize(540, 540);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.setTitle(client.idThis.toUpperCase() + "  -->  " + client.idOther.toUpperCase());
+
         cbStatus.setSelected(true);
 
         textField.addKeyListener(new KeyAdapter() {
@@ -89,6 +91,12 @@ public class gui {
                     button1.setEnabled(true);
                     cbAudio.setEnabled(true);
                     textField.setEnabled(true);
+                }
+                byte[] bytes = "".getBytes();
+                try {
+                    client.sendMsg(bytes, client.serverIP, client.serverPort);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
             }
         });

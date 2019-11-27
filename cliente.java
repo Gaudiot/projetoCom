@@ -21,7 +21,8 @@ public class cliente {
 
 	//Informacoes do servidor
 	int serverPort = 9999;
-	InetAddress serverIP = InetAddress.getByName("localhost");
+	InetAddress serverIP = InetAddress.getByName("192.168.15.16");
+
     //Informacoes desse cliente
     DatagramSocket portThisMsg = new DatagramSocket();
     DatagramSocket portThisAudio = new DatagramSocket();
@@ -68,19 +69,26 @@ public class cliente {
         ByteBuffer wrapped = ByteBuffer.wrap(bytes, 0, bytes.length);
         return wrapped.getInt();
     }
-	
+
 	public String receiveMsg() throws IOException {
 		byte[] receiveData = new byte[1024];
 		receivePacket = new DatagramPacket(receiveData, receiveData.length);
 		portThisMsg.receive(receivePacket);
 		String new_str = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
+		//Verifica se o pacote foi enviado pelo servidor
 		if(receivePacket.getPort() == serverPort && serverIP.equals(receivePacket.getAddress())) {
-			otherIP = InetAddress.getByAddress(Arrays.copyOfRange(receiveData, 0, 4));
-			portOtherMsg = byteToInt(Arrays.copyOfRange(receiveData, 4, 8));
-			portOtherAudio = byteToInt(Arrays.copyOfRange(receiveData, 8, 12));;
-			idOther = new String(receivePacket.getData(), 12, receivePacket.getLength()-(4*3));
-			graphicUI = new gui(this);
+			//Verifica se e uma mensagem de inicializacao
+			if(portOtherMsg == -1) {
+				otherIP = InetAddress.getByAddress(Arrays.copyOfRange(receiveData, 0, 4));
+				portOtherMsg = byteToInt(Arrays.copyOfRange(receiveData, 4, 8));
+				portOtherAudio = byteToInt(Arrays.copyOfRange(receiveData, 8, 12));
+				idOther = new String(receivePacket.getData(), 12, receivePacket.getLength() - (4 * 3));
+				graphicUI = new gui(this);
+			}else{
+				otherOnline = (receiveData[0] != 0);
+				//System.out.println("o outro esta " + otherOnline);
+			}
 			return "";
 		}
 		return new_str;
