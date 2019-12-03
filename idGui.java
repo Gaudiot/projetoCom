@@ -30,6 +30,7 @@ public class idGui {
         janela.pack();
         janela.setSize(400, 150);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        textPane.setEditable(false);
 
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

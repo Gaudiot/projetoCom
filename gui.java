@@ -29,6 +29,7 @@ public class gui {
         janela.setSize(540, 540);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.setTitle(client.idThis.toUpperCase() + "  -->  " + client.idOther.toUpperCase());
+        textArea.setEditable(false);
 
         cbStatus.setSelected(true);
 

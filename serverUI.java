@@ -17,6 +17,7 @@ public class serverUI {
         janela.pack();
         janela.setSize(300, 100);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        textArea.setEditable(false);
     }
 
     public void updateStatus(){
