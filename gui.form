@@ -6,7 +6,7 @@
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
     <properties>
-      <background color="-12828863"/>
+      <background color="-12829636"/>
     </properties>
     <border type="none"/>
     <children>
@@ -17,7 +17,7 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-1118485"/>
+          <background color="-2697517"/>
           <font name="Microsoft JhengHei" size="14"/>
           <foreground color="-16777216"/>
         </properties>
@@ -39,8 +39,7 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-2697517"/>
-          <text value="Button"/>
+          <text value="Enviar"/>
         </properties>
       </component>
       <component id="3f4e5" class="javax.swing.JCheckBox" binding="cbAudio">
@@ -48,9 +47,9 @@
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <text value="Start call"/>
           <background color="-2697517"/>
           <foreground color="-11183782"/>
-          <text value="send audio"/>
         </properties>
       </component>
       <component id="5ffaf" class="javax.swing.JCheckBox" binding="cbStatus">
@@ -60,7 +59,6 @@
         <properties>
           <background color="-2697517"/>
           <foreground color="-11183782"/>
-          <text value="be online"/>
         </properties>
       </component>
     </children>

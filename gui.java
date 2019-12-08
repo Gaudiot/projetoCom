@@ -1,3 +1,4 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,12 +16,59 @@ public class gui {
     private JCheckBox cbStatus;
     private JFrame janela;
     private cliente client;
-    public captureAudio capAudio;
-    private Thread threadCA;
+    TargetDataLine audio_in;
+    SourceDataLine audio_out;
+
+    public static AudioFormat getAudioFormat() {
+        float sampleRate = 8000.0F;
+        int sampleSizeInBits = 16;
+        int channel = 2;
+        boolean signed = true;
+        boolean bigEndian = false;
+        return new AudioFormat(sampleRate, sampleSizeInBits, channel, signed, bigEndian);
+    }
+
+    public void init_send_audio() {
+        AudioFormat format = getAudioFormat();
+        DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+        if (!AudioSystem.isLineSupported(info)) {
+            System.out.println("Not supported");
+            System.exit(0);
+        }
+        try {
+            audio_in = (TargetDataLine) AudioSystem.getLine(info);
+            audio_in.open(format);
+            audio_in.start();
+
+            recorder audioRecorder = new recorder(audio_in, this.client);
+            audioRecorder.start();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+        audio_in.start();
+    }
+
+    public void init_receive_audio() {
+        AudioFormat format = getAudioFormat();
+        DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+        if (!AudioSystem.isLineSupported(info)) {
+            System.out.println("Not supported");
+            System.exit(0);
+        }
+        try {
+            audio_out = (SourceDataLine) AudioSystem.getLine(info);
+            audio_out.open(format);
+            audio_out.start();
+
+            player audioPlayer = new player(audio_out, this.client);
+            audioPlayer.start();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
 
     public gui(cliente client){
         this.client = client;
-        capAudio = new captureAudio();
 
         janela = new JFrame();
         janela.setContentPane(panel);
@@ -66,15 +114,12 @@ public class gui {
 
         cbAudio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(cbAudio.isSelected()){
-                    //permita continuar a thread
-                    capAudio.setStop(false);
-                    //iniciar thread
-                    threadCA = new Thread(capAudio);
-                    threadCA.start();
+                if(cbAudio.isSelected()) {
+                    client.calling = true;
+                    init_send_audio();
+                    init_receive_audio();
                 }else{
-                    //pare a thread
-                    capAudio.setStop(true);
+                    client.calling = false;
                 }
             }
         });
@@ -85,7 +130,6 @@ public class gui {
                     button1.setEnabled(false);
                     cbAudio.setEnabled(false);
                     cbAudio.setSelected(false);
-                    capAudio.setStop(true);
                     textField.setEnabled(false);
                     textField.setText("");
                 }else{

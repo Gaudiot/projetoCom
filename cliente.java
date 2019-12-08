@@ -21,7 +21,7 @@ public class cliente {
 
 	//Informacoes do servidor
 	int serverPort = 9999;
-	InetAddress serverIP = InetAddress.getByName("G1C20");
+	InetAddress serverIP = InetAddress.getByName("localhost");
 
     //Informacoes desse cliente
     DatagramSocket portThisMsg = new DatagramSocket();
@@ -29,6 +29,7 @@ public class cliente {
     idGui idUI;
     gui graphicUI;
     String idThis = "YOU";
+	public static boolean calling = false;
     int qttMsgStored;
     //O primeiro valor do array representa a quantidade de mensagens que podem ser armazenadas por vez
 	//Esse valor poderia ser mudado dinanicamente, mas nao achamos que valia o esforco
