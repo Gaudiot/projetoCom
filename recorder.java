@@ -61,23 +61,24 @@ public class recorder extends Thread {
         b = concatenarBytes(b, timestamp);
         b = concatenarBytes(b, SSRC);
 
-        startSequenceNumber = (startSequenceNumber+1)%(1 << 17);
+        startSequenceNumber = (startSequenceNumber+1) % (1 << 17);
         return b;
     }
 
     int i = 1;
     public void run() {
         int m = (1 << 8);
-        startSequenceNumber = (int)Math.random()*(1 << 17);
+        startSequenceNumber = (int)Math.random() * (1 << 17);
         System.out.println("Thread recorder init.");
         while(client.calling) {
             audio_in.read(byte_buff, 0, byte_buff.length);
-            //Falta inserir cabeçalho RTP no byte_buff
-            //byte[] header = createRTP(m);
-            //byte_buff = concatenarBytes(header, byte_buff);
+            //Aqui nos geramos o cabecalho RTP
+            byte[] header = createRTP(m);
+            //Aqui nos concatenamos o cabecalho gerado com os dados
+            byte[] header_byte_buff = concatenarBytes(header, byte_buff);
             m = 0;
 
-            DatagramPacket data = new DatagramPacket(byte_buff, byte_buff.length, client.otherIP, client.portOtherAudio);
+            DatagramPacket data = new DatagramPacket(header_byte_buff, header_byte_buff.length, client.otherIP, client.portOtherAudio);
             //System.out.println("send #" + (i++));
             try {
                 out.send(data);
