@@ -28,7 +28,9 @@
             <preferred-size width="223" height="30"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-2697517"/>
+        </properties>
       </component>
       <component id="15e4e" class="javax.swing.JButton" binding="button1" default-binding="true">
         <constraints>
@@ -46,6 +48,8 @@
         </constraints>
         <properties>
           <text value="Start call"/>
+          <background color="-2697517"/>
+          <foreground color="-11183782"/>
         </properties>
       </component>
       <component id="5ffaf" class="javax.swing.JCheckBox" binding="cbStatus">
@@ -53,7 +57,8 @@
           <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="online"/>
+          <background color="-2697517"/>
+          <foreground color="-11183782"/>
         </properties>
       </component>
     </children>
