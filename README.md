@@ -1,19 +1,16 @@
-# projetoCom
-Projeto realizado para a disciplina Infraestrutura de Comunicação(IF678).
+# Communication Infrastructure project
+Project developed to the Communication Infrastructure discipline(IF678).
 
-### Objetivo do projeto
-Esse projeto teve como objetivo realizar uma comunicação P2P entre os clientes, além do correto entendimento e implementação do protocolo RTP ao implementar o protocolo UDP como protocolo
-da camada de transporte.
+### Project objective
+This project aims to build a P2P communication between 2 clients, besides the correct understanding and application of the RTP protocol while using UDP as protocol frm the transport layer.
 
-### Funcionamento
-* Ao baixar todos os documentos, 3(três) computadores poderão ser utilizados neste projeto. 
-* Um deles servirá como servidor e os outros dois serão os clientes.
-* Para o correto funcionamento, o endereço IP do servidor já deve ser conhecido e inserido no lugar do localhost na linha 24 do arquivo cliente.java.
-* Após o servidor ser posto para rodar, os clientes já poderão se conectar. Ao serem executados uma janela abrirá perguntando o nome de usuário que deseja utilizar. Assim que os 2 clientes
-se conectarem, será capaz que enviem mensagens de texto entre si, além de poderem realizar uma chamada VoIP.
+### How it works
+* After you downloaded all the documents, 3(three) computers can be used on this project.
+* One of them will be the server while the other 2 will be the clients.
+* To work properly, The server's IP adress must be already known and be inserted on the campus "localhost" on file "cliente.java" line 24.
+* After the server is running, the client shall connect. When executed, a new window will pop-up asking the desired username to be used. After both clients are connected they will be able to send messages to each other, besides being able to make a VoIP call.
 
-#### Observações
-* Caso o cliente B esteja offline, as mensagens enviada pelo cliente A serão armazenadas no próprio cliente até que o cliente B decida ficar online, momento o qual
-as mensagens armazenadas serão enviadas.
-* Só será possível haver comunicação por voz caso ambos os clientes aceitem a conversa.
-* O Servidor é utilizado apenas para registrar os clientes e informá-los dos estados(online/offline) e informações(endereço IP e porta) dos outros clientes.
+#### Observations
+* While client B is offline, the messages sent from client A will be stored on its own computer until client B comes back online, moment on which the stored messages will be sent to client B.
+* It will only be possible make a VoIP call if both clients accept to talk.
+* The only function of the server is to register the client and to inform them the status(online/offline) and information(IP adress and port) from the other clients.
